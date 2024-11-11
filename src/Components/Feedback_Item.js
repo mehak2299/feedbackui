@@ -4,7 +4,7 @@ export default function Feedback_Item() {
     const[rating,setRating]=useState(7)
     const[text,setText]=useState("This is an example of feedbackItem")
     // const handleClick=()=>{
-    //     setRating((prev)=>{
+    //     setRating((prev)=>{ 
     //         return prev+1
     //     })
     // }
