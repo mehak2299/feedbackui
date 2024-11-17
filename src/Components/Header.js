@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 function Header({title}) {
     return (
-        <header style={{backgroundColor:"blue",color:'red'}}>
+        <header >
             <div className='container'>
                 <h2>{title}</h2>
             </div>
