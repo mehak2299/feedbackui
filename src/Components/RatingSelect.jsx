@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 export default function RatingSelect({ handleRating }) {
     const [selected, setSelected] = useState(10)
 
@@ -6,6 +6,10 @@ export default function RatingSelect({ handleRating }) {
         setSelected(+e.currentTarget.value)
         handleRating(+e.currentTarget.value)
     }
+    useEffect(()=>{
+        handleRating(10)
+    },[])
+    console.log("selected",selected)
     return (
         <ul className='rating'>
             <li>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Card from './Card'
+import Card from '../shared/Card'
 import RatingSelect from './RatingSelect'
 import Button from './Button'
 export default function FeedbackForm({handleData}) {
@@ -28,7 +28,7 @@ export default function FeedbackForm({handleData}) {
     }
     const handleSubmit=(e)=>{
         e.preventDefault()
-        if(text.trim().length>=10)
+        if(text.trim().length>=10&&rating)
         {
             const newFeedback={
                 text,
