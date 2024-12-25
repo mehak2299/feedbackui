@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Feedback_Item from './Feedback_Item'
-import PropTypes from 'prop-types'
 import FeedbackData from '../Data/FeedbackData'
+import { useContext } from 'react'
+import FeedbackContext from '../context/FeedbackContext'
 import{motion,AnimatePresence} from 'framer-motion'
-export default function Feedback_List({ FeedbackData,handleDelete,handleEdit }) {
-   
-    if (!FeedbackData || FeedbackData.length <= 0) {
+export default function Feedback_List({ handleDelete,handleEdit }) {
+   const{feedback}=useContext(FeedbackContext)
+    if (!feedback || feedback.length <= 0) {
         return <p>No Feedback Data</p>
     }
-
+   console.log('feedback',feedback)
     return (
         <div className='feedback-list'>
             <AnimatePresence>
-            {FeedbackData.map((item) => {
+            {feedback.map((item) => {
                 return (
                     <motion.div key={item.id}
                     initial={{opacity:0}}
@@ -20,8 +21,7 @@ export default function Feedback_List({ FeedbackData,handleDelete,handleEdit }) 
                     exit={{opacity:0}}>
                        <Feedback_Item
                         key={item.id}
-                        item={item}
-                        handleDelete={handleDelete} 
+                        item={item}                     
                         handleEdit={handleEdit}/> 
                     </motion.div>
                     
@@ -32,6 +32,3 @@ export default function Feedback_List({ FeedbackData,handleDelete,handleEdit }) 
     )
 }
 
-Feedback_List.propTypes = {
-    FeedbackData: PropTypes.array.isRequired
-}

@@ -13,6 +13,7 @@ import About from './Components/About';
 import Card from './shared/Card'
 import AboutIcon from './shared/AboutIcon';
 import Post from './Components/Post';
+import { FeedbackProvider } from './context/FeedbackContext';
 function App() {
   const [Feedback, setFeedback] = useState(FeedbackData)
   const handleDelete = (id) => {
@@ -44,16 +45,17 @@ function App() {
   }
 
   return (
-    <div>
+    
+      <FeedbackProvider>
       <BrowserRouter>
         <Header title={'Feedback UI'} />
         <Routes>
           <Route path='/' element={
             <>
               <div className='container'>
-                <FeedbackForm handleData={handleData} />
-                <FeedbackStats FeedbackData={Feedback} />
-                <Feedback_List FeedbackData={Feedback} handleDelete={handleDelete} handleEdit={handleEdit} />
+                <FeedbackForm />
+                <FeedbackStats />
+                <Feedback_List  handleEdit={handleEdit} />
               </div>
             </>
           }></Route>
@@ -62,9 +64,10 @@ function App() {
 
         </Routes>
         <AboutIcon />
-      </BrowserRouter>
-
-    </div>
+      </BrowserRouter> 
+      </FeedbackProvider>
+    
+      
   );
 }
 

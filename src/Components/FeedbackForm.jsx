@@ -2,11 +2,16 @@ import React, { useState } from 'react'
 import Card from '../shared/Card'
 import RatingSelect from './RatingSelect'
 import Button from './Button'
+import { useContext } from 'react'
+import FeedbackContext from '../context/FeedbackContext'
+import { v4 as uuidv4 } from 'uuid';
+
 export default function FeedbackForm({handleData}) {
     const [text, setText] = useState('')
     const [btnDisabled, setBtnDisabled] = useState(true)
     const [message, setMessage] = useState('')
     const[rating,setRating]=useState()
+    const{feedback,setFeedback,addFeedback}=useContext(FeedbackContext)
     const handleTextChange = (e) => {
         if (text === '') {
             setBtnDisabled(true)
@@ -29,13 +34,14 @@ export default function FeedbackForm({handleData}) {
     const handleSubmit=(e)=>{
         e.preventDefault()
         if(text.trim().length>=10&&rating)
-        {
+        {  const id=uuidv4();
             const newFeedback={
                 text,
-                rating
+                rating,
+                id
             }
             console.log(newFeedback)
-            handleData(newFeedback)
+            addFeedback(newFeedback)
             setText(' ')
 
         }
