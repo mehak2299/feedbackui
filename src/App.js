@@ -55,7 +55,7 @@ function App() {
               <div className='container'>
                 <FeedbackForm />
                 <FeedbackStats />
-                <Feedback_List  handleEdit={handleEdit} />
+                <Feedback_List  />
               </div>
             </>
           }></Route>

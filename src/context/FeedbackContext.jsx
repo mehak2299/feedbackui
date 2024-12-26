@@ -5,6 +5,11 @@ export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = useState([
     { id: 1, text: "This item is from context", rating: 10 },
   ]);
+  const [editFeedback, setEditFeedback] = useState({
+    item: {},
+    edit: false,
+  });
+  console.log("editFeedback",editFeedback)
   const addFeedback = (newFeedback) => {
     setFeedback([...feedback, newFeedback]);
   };
@@ -14,16 +19,38 @@ export const FeedbackProvider = ({ children }) => {
         return id;
       }
     });
-    if(window.confirm("Are you sure you want to delete")){
-    setFeedback(data);
+    if (window.confirm("Are you sure you want to delete")) {
+      setFeedback(data);
     }
   };
-  const editFeedback=(item)=>{
+
+  const updateFeedback = (data, id) => {
+    console.log("Edit", data);
     
-  }
+      const one=feedback.map((item) => (item.id === id ? { ...item, ...data } : item))
+      console.log("Edit 1",one)
+      setFeedback(one)
+      setEditFeedback({ item: {}, edit: false });
+
+    
+  };
+  const editFeedbackFunc = (data) => {
+    setEditFeedback({ item: data, edit: true });
+  };
 
   return (
-    <FeedbackContext.Provider value={{ feedback, setFeedback, addFeedback ,deleteFeedback}}>
+    <FeedbackContext.Provider
+      value={{
+        feedback,
+        setFeedback,
+        addFeedback,
+        deleteFeedback,
+        editFeedback,
+        setEditFeedback,
+        updateFeedback,
+        editFeedbackFunc
+      }}
+    >
       {children}
     </FeedbackContext.Provider>
   );

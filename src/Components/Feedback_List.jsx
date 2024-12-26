@@ -4,7 +4,7 @@ import FeedbackData from '../Data/FeedbackData'
 import { useContext } from 'react'
 import FeedbackContext from '../context/FeedbackContext'
 import{motion,AnimatePresence} from 'framer-motion'
-export default function Feedback_List({ handleDelete,handleEdit }) {
+export default function Feedback_List() {
    const{feedback}=useContext(FeedbackContext)
     if (!feedback || feedback.length <= 0) {
         return <p>No Feedback Data</p>
@@ -22,7 +22,7 @@ export default function Feedback_List({ handleDelete,handleEdit }) {
                        <Feedback_Item
                         key={item.id}
                         item={item}                     
-                        handleEdit={handleEdit}/> 
+                        /> 
                     </motion.div>
                     
                 )
