@@ -56,11 +56,9 @@ export default function FeedbackForm({ handleData }) {
         };
         updateFeedback(newFeedback,id);
       } else {
-        const id = uuidv4();
         const newFeedback = {
-          text,
           rating,
-          id,
+          text,
         };
         console.log(newFeedback);
         addFeedback(newFeedback);

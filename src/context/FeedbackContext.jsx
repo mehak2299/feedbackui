@@ -14,39 +14,54 @@ export const FeedbackProvider = ({ children }) => {
   },[])
 
   //Fetch Feedback
-  const fetchFeedback=async()=>{
-    const response=await fetch(`http://localhost:5000/feedback?_sort=id&_order=desc`)
-    const data=await response.json()
-    console.log(data)
+  const fetchFeedback = async () => {
+    const response = await fetch(`/feedback?_sort=id&_order=desc`)
+    const data = await response.json()
+
     setFeedback(data)
     setIsLoading(false)
   }
-  const addFeedback = (newFeedback) => {
-    setFeedback([...feedback, newFeedback]);
-  };
-  const deleteFeedback = (id) => {
-    const data = feedback.filter((item) => {
-      if (item.id !== id) {
-        return id;
-      }
-    });
-    if (window.confirm("Are you sure you want to delete")) {
-      setFeedback(data);
-    }
-  };
+  //Add Feedback
+  const addFeedback = async(newFeedback) => {
+    const response=await fetch(`/feedback`,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify(newFeedback),
 
-  const updateFeedback = (data, id) => {
-    console.log("Edit", data);
-    
-      const one=feedback.map((item) => (item.id === id ? { ...item, ...data } : item))
-      console.log("Edit 1",one)
+    })
+    const data= await response.json()
+    setFeedback([data,...feedback]);
+  };
+  const deleteFeedback = async (id) => {
+    if (window.confirm('Are you sure you want to delete?')) {
+      await fetch(`/feedback/${id}`, { method: 'DELETE' })
+
+      setFeedback(feedback.filter((item) => item.id !== id))
+    }
+  }
+
+  const updateFeedback = async(data, id) => {
+    console.log("FEE",feedback)
+      const response=await fetch(`/feedback/${id}`,{
+        method:'PUT',
+        headers:{
+          'Content-Type':'application/json',
+        },
+        body:JSON.stringify(data),
+      }) 
+      const two=await response.json()
+      console.log("TWo",two)
+      const one=feedback.map((item) => (item.id === id ?two: item))
       setFeedback(one)
       setEditFeedback({ item: {}, edit: false });
 
     
   };
+
   const editFeedbackFunc = (data) => {
-    setEditFeedback({ item: data, edit: true });
+    setEditFeedback({ item: data, edit: true,});
   };
 
   return (
